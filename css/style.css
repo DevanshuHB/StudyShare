@@ -1,0 +1,236 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap');
+
+/* Bootstrap Custom Overrides & Variables */
+:root {
+  /* Define custom color properties for gradients and backgrounds not strictly mapped by BS5 */
+  --primary-color: #6C63FF;
+  --secondary-color: #00BFA6;
+  --primary-gradient: linear-gradient(135deg, #6C63FF, #7F7CFF);
+  
+  /* Overriding Bootstrap Variables for Light Mode */
+  --bs-body-font-family: 'Inter', sans-serif;
+  --bs-heading-font-family: 'Poppins', sans-serif;
+  --bs-body-bg: #F8F9FC;
+  --bs-body-color: #333333;
+  --bs-primary: #6C63FF;
+  --bs-secondary: #00BFA6;
+  --bs-border-color: #E5E7EB;
+  
+  --card-bg: #FFFFFF;
+}
+
+[data-bs-theme="dark"] {
+  /* Overriding Bootstrap Variables for Dark Mode */
+  --bs-body-bg: #111827;
+  --bs-body-color: #F9FAFB;
+  --bs-border-color: #374151;
+  --bs-tertiary-bg: #1F2937; /* Used for glassmorphism fallbacks */
+  
+  --card-bg: #1F2937;
+}
+
+/* Base Typo */
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  scroll-behavior: smooth;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--bs-heading-font-family);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Gradients text and backgrounds */
+.bg-gradient-primary {
+  background: var(--primary-gradient) !important;
+}
+.text-gradient-primary {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Custom Primary Button with Gradient and Shadow */
+.btn-primary-gradient {
+  background: var(--primary-gradient) !important;
+  color: white !important;
+  border: none !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 14px 0 rgba(108, 99, 255, 0.39);
+}
+.btn-primary-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
+}
+
+/* Secondary Outline */
+.btn-outline-custom {
+  border: 2px solid var(--secondary-color) !important;
+  color: var(--secondary-color) !important;
+  transition: all 0.2s ease;
+  background: transparent;
+}
+.btn-outline-custom:hover {
+  background: var(--secondary-color) !important;
+  color: white !important;
+  transform: translateY(-2px);
+}
+
+/* Cards */
+.custom-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+[data-bs-theme="dark"] .custom-card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+.custom-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+[data-bs-theme="dark"] .custom-card:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Glassmorphism */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+}
+[data-bs-theme="dark"] .glass-panel {
+  background: rgba(31, 41, 55, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Micro-interactions */
+.hover-scale {
+  transition: transform 0.2s ease;
+}
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
+/* Skeletons */
+.skeleton-box {
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+  border-radius: 8px;
+}
+[data-bs-theme="dark"] .skeleton-box {
+  background: linear-gradient(110deg, #374151 8%, #4B5563 18%, #374151 33%);
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+}
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+/* Navigation Overrides */
+.navbar-custom {
+  background: transparent;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.navbar-custom.sticky-scroll {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.9);
+}
+[data-bs-theme="dark"] .navbar-custom.sticky-scroll {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  background: rgba(17, 24, 39, 0.9);
+}
+
+/* Toast */
+.custom-toast {
+  position: fixed;
+  bottom: -100px;
+  right: 20px;
+  padding: 16px 24px;
+  border-radius: 12px;
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
+  transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 1060; /* Above bootstrap modals */
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+}
+.custom-toast.show {
+  bottom: 20px;
+}
+[data-bs-theme="dark"] .custom-toast {
+  background: #4F46E5;
+}
+
+/* Line clamps */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+}
+
+/* Abstract blobs */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: 0;
+}
+[data-bs-theme="dark"] .blob {
+  opacity: 0.1;
+}
+
+/* Custom rounded corners for inputs */
+.form-control-custom {
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+}
+.form-control-custom:focus {
+    box-shadow: 0 0 0 0.25rem rgba(108, 99, 255, 0.25);
+    border-color: var(--primary-color);
+}
+
+/* Social Buttons */
+.social-btn {
+  background-color: var(--card-bg);
+  border: 1px solid var(--bs-border-color);
+  color: var(--bs-body-color) !important;
+  opacity: 0.75;
+  transition: all 0.2s ease;
+}
+.social-btn:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+[data-bs-theme="dark"] .social-btn:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4) !important;
+}
+
+/* Brand specific hover colors based on current theme */
+.social-btn.github:hover { color: #333 !important; border-color: #333; }
+[data-bs-theme="dark"] .social-btn.github:hover { color: #fff !important; border-color: #fff; }
+
+.social-btn.discord:hover { color: #5865F2 !important; border-color: #5865F2; }
+[data-bs-theme="dark"] .social-btn.discord:hover { color: #7289DA !important; border-color: #7289DA; }
+
+/* X/Twitter hover — base icon color is inherited from .social-btn (var(--bs-body-color)) */
+.social-btn.twitter:hover { color: #000 !important; border-color: #000; }
+[data-bs-theme="dark"] .social-btn.twitter:hover { color: #fff !important; border-color: #fff; }

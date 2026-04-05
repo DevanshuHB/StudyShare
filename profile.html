@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - StudyShare</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Security Check -->
+    <script src="js/main.js"></script>
+    <script>requireAuth();</script>
+</head>
+<body class="antialiased bg-body-tertiary d-flex vh-100 overflow-hidden">
+
+    <!-- Sidebar Navigation -->
+    <aside class="d-none d-md-flex flex-column bg-body border-end" style="width: 256px;">
+        <div class="p-4 d-flex align-items-center gap-3 cursor-pointer border-bottom" onclick="window.location.href='index.html'">
+            <img src="images/logo.png" alt="StudyShare Logo" style="width: 32px; height: 32px;" class="rounded shadow-sm object-fit-cover">
+            <span class="h5 mb-0 fw-bold tracking-tight">StudyShare</span>
+        </div>
+        <div class="flex-grow-1 overflow-auto py-3 px-3 d-flex flex-column gap-1">
+            <a href="dashboard.html" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 text-body hover-bg-light transition fw-medium small">
+                <i class="fa-solid fa-chart-pie me-3" style="width: 20px;"></i> Dashboard
+            </a>
+            <a href="upload.html" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 text-body hover-bg-light transition fw-medium small">
+                <i class="fa-solid fa-cloud-arrow-up me-3" style="width: 20px;"></i> Upload Notes
+            </a>
+            <a href="profile.html#my-notes" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 text-body hover-bg-light transition fw-medium small">
+                <i class="fa-regular fa-file-lines me-3" style="width: 20px;"></i> My Notes
+            </a>
+            <a href="#" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 text-body hover-bg-light transition fw-medium small">
+                <i class="fa-regular fa-bookmark me-3" style="width: 20px;"></i> Bookmarks
+            </a>
+            <a href="profile.html" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 bg-primary bg-opacity-10 text-primary fw-medium small">
+                <i class="fa-regular fa-user me-3" style="width: 20px;"></i> Profile
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content wrapper -->
+    <main class="flex-grow-1 overflow-auto position-relative bg-body-tertiary w-100">
+        <!-- Cover Header -->
+        <div class="bg-gradient-primary w-100 position-relative" style="height: 250px;">
+            <div class="position-absolute top-0 start-0 w-100 h-100 bg-black opacity-25" style="mix-blend-mode: overlay; background-image: url('https://www.transparenttextures.com/patterns/cubes.png');"></div>
+            
+            <!-- Mobile escape -->
+            <div class="d-md-none position-absolute top-0 start-0 p-3 z-1">
+                <button class="btn btn-light rounded-circle shadow-sm p-2 bg-opacity-75" onclick="window.location.href='dashboard.html'"><i class="fa-solid fa-arrow-left"></i></button>
+            </div>
+        </div>
+
+        <div class="container-fluid px-3 px-md-4 pb-5 pt-0 max-w-7xl mx-auto position-relative" style="max-width: 1200px; margin-top: -80px;">
+            
+            <!-- Profile Info Box -->
+            <div class="custom-card p-4 p-sm-5 border-0 mb-5 position-relative z-1 shadow-sm">
+                <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-start gap-4">
+                    <div class="position-relative">
+                        <!-- Default Avatar Placeholder handled by main.js updateNavbarDisplay -->
+                        <img id="profile-img-real" src="" alt="Profile" class="current-user-pfp rounded-circle border border-4 shadow-sm object-fit-cover bg-white" style="width: 120px; height: 120px; border-color: var(--bs-body-bg) !important;">
+                        
+                        <button id="edit-pfp-btn" class="btn btn-primary rounded-circle position-absolute bottom-0 end-0 d-none align-items-center justify-content-center border border-2 border-white shadow-sm transition" style="width: 36px; height: 36px; padding: 0;" onclick="document.getElementById('pfp-upload-input').click()">
+                            <i class="fa-solid fa-camera small"></i>
+                        </button>
+                        <input type="file" id="pfp-upload-input" accept="image/*" class="d-none">
+                    </div>
+                    
+                    <div class="text-center text-sm-start flex-grow-1">
+                        <h1 class="h3 fw-bold mb-1" id="profile-name">User Name</h1>
+                        <p class="text-body-secondary small mb-1"><i class="fa-solid fa-envelope me-2 text-muted"></i><span id="profile-email">email@university.edu</span></p>
+                        <p class="text-body-secondary small mb-3"><i class="fa-regular fa-calendar me-2 text-muted"></i>Joined August 2024</p>
+                        
+                        <!-- Social Links -->
+                        <div class="d-flex gap-2 justify-content-center justify-content-sm-start mb-4">
+                            <a href="#" class="btn social-btn github rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                            <a href="#" class="btn social-btn discord rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                                <i class="fa-brands fa-discord"></i>
+                            </a>
+                            <a href="#" class="btn social-btn twitter rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                                <i class="fa-brands fa-x-twitter text-body"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="d-flex flex-wrap justify-content-center justify-content-sm-start gap-3 mt-4">
+                            <div class="bg-body border rounded-3 px-3 py-2 text-center" style="min-width: 90px;">
+                                <h4 class="fw-bold mb-0" id="profile-uploads-count">0</h4>
+                                <small class="text-body-secondary text-uppercase fw-semibold" style="font-size: 0.7rem;">Uploads</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3 mt-sm-0">
+                        <button id="toggle-edit-btn" class="btn btn-outline-custom rounded-pill px-4 py-2 fw-medium text-nowrap transition" onclick="toggleEditMode()"><i class="fa-solid fa-pen me-2"></i><span>Edit Profile</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Notes Section -->
+            <div id="my-notes">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="h4 fw-bold mb-0">Uploaded Notes</h2>
+                </div>
+
+                <div class="row g-4" id="my-notes-grid">
+                    <!-- Dynamic notes -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = getCurrentUser();
+            if(user) {
+                document.getElementById('profile-name').textContent = user.name;
+                document.getElementById('profile-email').textContent = user.email;
+            }
+
+            // Handle PFP Upload
+            document.getElementById('pfp-upload-input').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    if (file.size > 2 * 1024 * 1024) { // 2MB limit
+                        showToast('Image file is too large (max 2MB)', 'error');
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const base64Data = event.target.result;
+                        showRealPfp(base64Data);
+                        updateUserPfp(base64Data); // From main.js
+                        showToast('Profile image updated successfully!');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Fetch My Notes dynamically
+            fetch('/api/notes')
+                .then(res => res.json())
+                .then(notes => {
+                    if(!user) return;
+                    const myNotes = notes.filter(n => n.uploader && (n.uploader._id === user._id || n.uploader === user._id || n.uploader.id === user._id));
+                    
+                    const countEl = document.getElementById('profile-uploads-count');
+                    if (countEl) countEl.textContent = myNotes.length;
+                    
+                    const grid = document.getElementById('my-notes-grid');
+                    grid.innerHTML = '';
+                    if(myNotes.length === 0) {
+                        grid.innerHTML = '<div class="col-12 text-body-secondary">No notes uploaded yet.</div>';
+                    } else {
+                        myNotes.forEach(note => {
+                            const safePath = note.filePath ? note.filePath.replace(/\\/g, '/') : '#';
+                            let iconClass = 'fa-file-pdf text-danger';
+                            if(note.fileType && note.fileType.includes('image')) iconClass = 'fa-file-image text-primary';
+                            grid.innerHTML += `
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="custom-card p-4 h-100 d-flex flex-column border-0 shadow-sm cursor-pointer" onclick="window.open('${safePath}', '_blank')">
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
+                                            <div class="bg-primary bg-opacity-10 text-primary rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 1.5rem;">
+                                                <i class="fa-solid ${iconClass}"></i>
+                                            </div>
+                                        </div>
+                                        <h3 class="h6 fw-bold mb-2 text-truncate">${note.title}</h3>
+                                        <p class="small text-body-secondary mb-3 line-clamp-2">${note.description || 'No description provided.'}</p>
+                                        <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top border-secondary-subtle">
+                                            <span class="badge bg-primary bg-opacity-10 text-primary rounded px-2 py-1 user-select-none">${note.subject || 'General'}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    }
+                }).catch(err => console.error("Could not fetch notes", err));
+        });
+
+        function showRealPfp(src) {
+            const realImg = document.getElementById('profile-img-real');
+            realImg.src = src;
+        }
+
+        function toggleEditMode() {
+            const btn = document.getElementById('toggle-edit-btn');
+            const cameraBtn = document.getElementById('edit-pfp-btn');
+            const span = btn.querySelector('span');
+            const nameEl = document.getElementById('profile-name');
+
+            if (cameraBtn.classList.contains('d-none')) {
+                // Enter Edit Mode
+                cameraBtn.classList.remove('d-none');
+                cameraBtn.classList.add('d-flex');
+                btn.classList.add('btn-primary');
+                btn.classList.remove('btn-outline-custom');
+                span.textContent = 'Done Editing';
+                
+                // Allow Name Editing
+                nameEl.contentEditable = "true";
+                nameEl.classList.add('border-bottom', 'border-primary', 'border-2', 'bg-body-secondary', 'px-2', 'rounded', 'shadow-sm', 'd-inline-block');
+                nameEl.style.outline = "none";
+                nameEl.focus();
+            } else {
+                // Exit Edit Mode
+                cameraBtn.classList.add('d-none');
+                cameraBtn.classList.remove('d-flex');
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-outline-custom');
+                span.textContent = 'Edit Profile';
+                
+                // Save Name
+                nameEl.contentEditable = "false";
+                nameEl.classList.remove('border-bottom', 'border-primary', 'border-2', 'bg-body-secondary', 'px-2', 'rounded', 'shadow-sm', 'd-inline-block');
+                nameEl.style.outline = "";
+                
+                const newName = nameEl.textContent;
+                const savedName = updateUserName(newName);
+                if (savedName) {
+                    nameEl.textContent = savedName; // reset to cleanly trimmed version
+                    showToast('Profile updated!');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

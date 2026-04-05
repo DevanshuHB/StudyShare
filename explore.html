@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Notes - StudyShare</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="antialiased bg-body-tertiary d-flex flex-column min-vh-100">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top py-3 border-bottom border-secondary-subtle bg-body bg-opacity-75">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="images/logo.png" alt="StudyShare Logo" style="width: 40px; height: 40px;" class="rounded-3 shadow-sm object-fit-cover">
+                <span class="h4 mb-0 fw-bold tracking-tight">StudyShare</span>
+            </a>
+
+            <div class="d-flex align-items-center d-lg-none gap-2">
+                <button class="btn btn-link text-secondary text-decoration-none theme-toggle p-2">
+                    <i class="fa-solid fa-moon fs-5"></i>
+                </button>
+                <button class="navbar-toggler border-0 shadow-none px-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="fa-solid fa-bars fs-3 text-body"></i>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-4">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold text-primary" href="explore.html">Explore Notes</a></li>
+                    <li class="nav-item auth-only d-none"><a class="nav-link" href="upload.html">Upload Notes</a></li>
+                    <li class="nav-item auth-only d-none"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                    <li class="nav-item auth-only d-none"><a class="nav-link" href="profile.html">Profile</a></li>
+                </ul>
+                <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-3 mt-3 mt-lg-0">
+                    <button class="btn btn-link text-decoration-none text-body p-2 theme-toggle d-none d-lg-block rounded-circle hover-bg-light transition">
+                        <i class="fa-solid fa-moon fs-5"></i>
+                    </button>
+                    <!-- Logged Out State -->
+                    <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-3 guest-only">
+                        <a href="login.html" class="nav-link fw-medium d-inline-block text-center mb-2 mb-lg-0">Login</a>
+                        <a href="signup.html" class="btn btn-primary-gradient px-4 py-2 rounded-3 fw-medium">Sign Up</a>
+                    </div>
+                    <!-- Logged In State -->
+                    <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-3 auth-only d-none">
+                        <a href="#" class="nav-link fw-medium text-danger d-inline-block text-center mb-2 mb-lg-0" onclick="handleLogout(event)">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1 container py-5" style="margin-top: 80px;">
+        
+        <!-- Search and Filters Banner -->
+        <div class="bg-body border rounded-4 p-4 p-md-5 mb-5 shadow-sm text-center position-relative overflow-hidden">
+            <div class="blob bg-primary" style="top: -50px; left: -50px; width: 200px; height: 200px;"></div>
+            <div class="blob bg-info" style="bottom: -50px; right: -50px; width: 200px; height: 200px;"></div>
+            
+            <div class="position-relative z-1 max-w-2xl mx-auto" style="max-width: 600px;">
+                <h1 class="h2 fw-bolder mb-3">Find what you need.</h1>
+                <p class="text-body-secondary mb-4">Search through thousands of high-quality study materials, notes, and exams shared by top students.</p>
+                
+                <form class="d-flex align-items-center bg-body border rounded-pill p-2 shadow-sm focus-within-ring" id="search-form" onsubmit="event.preventDefault(); window.performSearch();">
+                    <i class="fa-solid fa-magnifying-glass ms-3 text-body-secondary"></i>
+                    <input type="text" id="search-input" class="form-control border-0 shadow-none bg-transparent" placeholder="Search by subject, topic or course code...">
+                    <button type="submit" class="btn btn-primary-gradient rounded-pill px-4 fw-medium">Search</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row g-5">
+            <!-- Sidebar Filters -->
+            <aside class="col-12 col-lg-3" style="margin-top: -24px;"> <!-- Adjustment for alignment -->
+                <div class="sticky-top" style="top: 100px;">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="h6 fw-bold mb-0">Filters</h4>
+                        <button class="btn btn-link btn-sm text-decoration-none text-body-secondary p-0">Clear all</button>
+                    </div>
+
+                    <div class="custom-card p-4 border-0 shadow-sm mb-4">
+                        <h5 class="small fw-bold text-uppercase text-body-secondary mb-3">Categories</h5>
+                        <div class="d-flex flex-column gap-2">
+                            <label class="form-check cursor-pointer m-0">
+                                <input class="form-check-input" type="checkbox" checked>
+                                <span class="form-check-label text-body small">All Subjects</span>
+                            </label>
+                            <label class="form-check cursor-pointer m-0">
+                                <input class="form-check-input" type="checkbox">
+                                <span class="form-check-label text-body small">Computer Science <span class="text-body-secondary ms-1">(1.2k)</span></span>
+                            </label>
+                            <label class="form-check cursor-pointer m-0">
+                                <input class="form-check-input" type="checkbox">
+                                <span class="form-check-label text-body small">Engineering <span class="text-body-secondary ms-1">(850)</span></span>
+                            </label>
+                            <label class="form-check cursor-pointer m-0">
+                                <input class="form-check-input" type="checkbox">
+                                <span class="form-check-label text-body small">Mathematics <span class="text-body-secondary ms-1">(940)</span></span>
+                            </label>
+                            <label class="form-check cursor-pointer m-0">
+                                <input class="form-check-input" type="checkbox">
+                                <span class="form-check-label text-body small">Physics <span class="text-body-secondary ms-1">(620)</span></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="custom-card p-4 border-0 shadow-sm">
+                        <h5 class="small fw-bold text-uppercase text-body-secondary mb-3">File Type</h5>
+                        <div class="d-flex flex-column gap-2">
+                            <label class="form-check cursor-pointer m-0">
+                                <input class="form-check-input" type="checkbox" checked>
+                                <span class="form-check-label text-body small">PDF Documents</span>
+                            </label>
+                            <label class="form-check cursor-pointer m-0">
+                                <input class="form-check-input" type="checkbox" checked>
+                                <span class="form-check-label text-body small">Word Documents</span>
+                            </label>
+                            <label class="form-check cursor-pointer m-0">
+                                <input class="form-check-input" type="checkbox">
+                                <span class="form-check-label text-body small">Presentations</span>
+                            </label>
+                            <label class="form-check cursor-pointer m-0">
+                                <input class="form-check-input" type="checkbox">
+                                <span class="form-check-label text-body small">Images/Scans</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Results Grid -->
+            <div class="col-12 col-lg-9">
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <p class="text-body-secondary mb-0">Showing <strong>2,450</strong> results</p>
+                    <select class="form-select form-select-sm w-auto bg-body text-body border-secondary-subtle">
+                        <option>Most Relevant</option>
+                        <option>Highest Rated</option>
+                        <option>Most Downloaded</option>
+                        <option>Newest First</option>
+                    </select>
+                </div>
+
+                <!-- Notes Grid -->
+                <div class="row g-4 mb-5" id="notes-grid">
+                    <!-- Dynamic Loading state -->
+                    <div class="text-center w-100 py-5" id="loading-spinner">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State (Hidden by default) -->
+                <div id="no-results-msg" class="d-none text-center py-5">
+                    <i class="fa-solid fa-magnifying-glass fs-1 text-body-tertiary mb-3"></i>
+                    <h4 class="h5 fw-bold text-body-secondary">No notes found.</h4>
+                    <p class="small text-body-secondary mb-0">Try adjusting your search terms or filters.</p>
+                </div>
+
+                <!-- Pagination -->
+                <nav aria-label="Explore pagination">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link text-body-secondary border-0 bg-transparent rounded-circle me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;" href="#" tabindex="-1" aria-disabled="true"><i class="fa-solid fa-chevron-left"></i></a>
+                        </li>
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link rounded-circle border-0 d-flex align-items-center justify-content-center mx-1" style="width: 40px; height: 40px; background: var(--primary-gradient);" href="#">1</a>
+                        </li>
+                        <li class="page-item"><a class="page-link text-body border-0 bg-transparent rounded-circle mx-1 d-flex align-items-center justify-content-center hover-bg-light" style="width: 40px; height: 40px;" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link text-body border-0 bg-transparent rounded-circle mx-1 d-flex align-items-center justify-content-center hover-bg-light" style="width: 40px; height: 40px;" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link text-body border-0 bg-transparent rounded-circle ms-2 d-flex align-items-center justify-content-center hover-bg-light" style="width: 40px; height: 40px;" href="#"><i class="fa-solid fa-chevron-right"></i></a>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-body border-top py-4 mt-auto">
+        <div class="container">
+            <div class="row g-4 py-3">
+                <!-- Branding -->
+                <div class="col-12 col-md-4">
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <img src="images/logo.png" alt="StudyShare Logo" style="width: 32px; height: 32px;" class="rounded shadow-sm object-fit-cover">
+                        <span class="h5 mb-0 fw-bold">StudyShare</span>
+                    </div>
+                    <p class="text-body-secondary small mb-3">A collaborative platform where students upload and access study notes from multiple subjects.</p>
+                    <div class="d-flex gap-2">
+                        <a href="#" class="btn social-btn twitter rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;"><i class="fa-brands fa-x-twitter text-body"></i></a>
+                        <a href="#" class="btn social-btn github rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" class="btn social-btn discord rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+                <!-- Quick Links -->
+                <div class="col-6 col-md-4">
+                    <h5 class="fw-bold mb-3 small text-uppercase text-body-secondary">Quick Links</h5>
+                    <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+                        <li><a href="index.html" class="text-body-secondary text-decoration-none hover-primary small">Home</a></li>
+                        <li><a href="explore.html" class="text-body-secondary text-decoration-none hover-primary small">Explore Notes</a></li>
+                        <li><a href="about.html" class="text-body-secondary text-decoration-none hover-primary small">About Us</a></li>
+                        <li><a href="contact.html" class="text-body-secondary text-decoration-none hover-primary small">Contact</a></li>
+                    </ul>
+                </div>
+                <!-- Footer bottom -->
+                <div class="col-6 col-md-4 d-flex flex-column justify-content-end">
+                    <p class="text-body-secondary small mb-0 text-md-end">© 2026 StudyShare — Built for students.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        let allNotes = [];
+
+        async function fetchNotes() {
+            try {
+                const response = await fetch('/api/notes');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    allNotes = data;
+                    renderNotes(allNotes);
+                } else {
+                    showToast('Failed to load notes', 'error');
+                }
+            } catch (error) {
+                console.error(error);
+                showToast('Server error', 'error');
+            }
+        }
+
+        function renderNotes(notes) {
+            const grid = document.getElementById('notes-grid');
+            const noResults = document.getElementById('no-results-msg');
+            
+            grid.innerHTML = '';
+            
+            if (notes.length === 0) {
+                noResults.classList.remove('d-none');
+                return;
+            } else {
+                noResults.classList.add('d-none');
+            }
+
+            notes.forEach(note => {
+                const uploaderName = note.uploader ? note.uploader.name : 'Unknown';
+                const safePath = note.filePath ? note.filePath.replace(/\\/g, '/') : '#';
+                
+                // Simple icon mapping
+                let iconClass = 'fa-file-pdf';
+                let iconBg = 'bg-danger';
+                let iconText = 'text-danger';
+                if (note.fileType && note.fileType.includes('image')) {
+                    iconClass = 'fa-file-image';
+                    iconBg = 'bg-primary'; iconText = 'text-primary';
+                }
+
+                grid.innerHTML += `
+                    <div class="col-md-6 col-xl-4">
+                        <div class="custom-card p-4 h-100 d-flex flex-column shadow-sm border-0 transition hover-outline" style="cursor: pointer;" onclick="window.open('${safePath}', '_blank')">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="${iconBg} bg-opacity-10 ${iconText} rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 1.5rem;">
+                                    <i class="fa-solid ${iconClass}"></i>
+                                </div>
+                                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2">${note.subject || 'General'}</span>
+                            </div>
+                            <h3 class="h5 fw-bold mb-2">${note.title}</h3>
+                            <p class="small text-body-secondary mb-4 d-flex align-items-center gap-2">
+                                By ${uploaderName}
+                            </p>
+                            <div class="d-flex align-items-center justify-content-between mt-auto pt-3 border-top">
+                                <div class="d-flex align-items-center gap-3 small text-body-secondary">
+                                    <span class="d-flex align-items-center gap-1"><i class="fa-solid fa-download"></i> ${note.downloads || 0}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // DOM Based Search Logic
+        window.performSearch = function() {
+            const query = document.getElementById('search-input').value.toLowerCase().trim();
+            if (query === '') {
+                renderNotes(allNotes);
+                return;
+            }
+            
+            const filtered = allNotes.filter(n => n.title.toLowerCase().includes(query) || (n.subject && n.subject.toLowerCase().includes(query)));
+            renderNotes(filtered);
+        };
+
+        // Attach listener for real-time typing
+        document.getElementById('search-input').addEventListener('input', window.performSearch);
+
+        // Fetch on load
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchNotes();
+        });
+    </script>
+</body>
+</html>

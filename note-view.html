@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note View - StudyShare</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="antialiased bg-body-tertiary d-flex flex-column min-vh-100">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand navbar-custom fixed-top py-3 border-bottom border-secondary-subtle bg-body bg-opacity-75">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-light rounded-circle shadow-sm p-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;" onclick="window.history.back()">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <a class="navbar-brand d-none d-sm-flex align-items-center gap-2 m-0" href="index.html">
+                    <span class="h5 mb-0 fw-bold tracking-tight">StudyShare</span>
+                </a>
+            </div>
+            
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-link text-decoration-none text-body p-2 theme-toggle rounded-circle hover-bg-light transition">
+                    <i class="fa-solid fa-moon fs-5"></i>
+                </button>
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-outline-custom rounded-pill px-3 py-1 btn-sm fw-medium d-none d-sm-block auth-only d-none" onclick="showToast('Note bookmarked!')">
+                        <i class="fa-regular fa-bookmark me-1"></i> Save
+                    </button>
+                    <!-- Logged Out State -->
+                    <div class="guest-only d-flex align-items-center gap-2">
+                        <a href="login.html" class="nav-link text-body fw-medium d-none d-md-block">Login</a>
+                        <a href="signup.html" class="btn btn-primary-gradient px-3 py-1 btn-sm rounded-pill fw-medium d-none d-md-block">Sign Up</a>
+                    </div>
+                    <!-- Logged In State -->
+                    <div class="auth-only d-none d-flex align-items-center gap-2">
+                        <a href="dashboard.html" class="nav-link text-body fw-medium d-none d-md-block">Dashboard</a>
+                        <img class="current-user-pfp rounded-circle border" src="" alt="Profile" style="width: 36px; height: 36px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1 container pb-5" style="margin-top: 100px;">
+        
+        <div class="row g-4">
+            <!-- Document Viewer Column -->
+            <div class="col-12 col-xl-8">
+                <div class="custom-card border-0 p-3 h-100 min-vh-50 d-flex flex-column bg-body shadow-sm">
+                    <!-- Viewer Toolbar -->
+                    <div class="d-flex justify-content-between align-items-center mb-3 pb-3 border-bottom">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge bg-danger text-white rounded px-2 py-1 small">PDF</span>
+                            <span class="small fw-medium text-body-secondary">Page 1 of 42</span>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-light btn-sm text-body-secondary"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
+                            <button class="btn btn-light btn-sm text-body-secondary"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                            <button class="btn btn-light btn-sm text-body-secondary"><i class="fa-solid fa-expand"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- Simulated Document Area -->
+                    <div class="flex-grow-1 bg-body-tertiary border rounded-3 d-flex align-items-center justify-content-center overflow-auto position-relative" style="min-height: 500px;">
+                        
+                        <!-- Skeleton loader to simulate page load -->
+                        <div class="w-75 p-5 bg-body shadow-sm rounded">
+                            <div class="skeleton-box w-50 h-32px mb-4"></div>
+                            <div class="skeleton-box w-100 h-16px mb-2"></div>
+                            <div class="skeleton-box w-100 h-16px mb-2"></div>
+                            <div class="skeleton-box w-75 h-16px mb-4"></div>
+                            
+                            <div class="skeleton-box w-100 h-200px mb-4"></div>
+                            
+                            <div class="skeleton-box w-100 h-16px mb-2"></div>
+                            <div class="skeleton-box w-100 h-16px mb-2"></div>
+                            <div class="skeleton-box w-100 h-16px mb-2"></div>
+                            <div class="skeleton-box w-80 h-16px"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metadata & Comments Column -->
+            <div class="col-12 col-xl-4 d-flex flex-column gap-4">
+                
+                <!-- Metadata Card -->
+                <div class="custom-card border-0 p-4 bg-body shadow-sm">
+                    <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2 mb-3">Computer Science</span>
+                    <h1 class="h3 fw-bold mb-2">Data Structures & Algorithms - Final Review Topics</h1>
+                    
+                    <div class="d-flex align-items-center gap-3 mb-4 mt-3">
+                        <img src="https://i.pravatar.cc/150?u=1" alt="Author" class="rounded-circle border" style="width: 40px; height: 40px;">
+                        <div>
+                            <p class="mb-0 fw-medium small">Aryan Sharma</p>
+                            <p class="mb-0 text-body-secondary" style="font-size: 0.75rem;">Uploaded Oct 24, 2026</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center py-3 border-top border-bottom border-secondary-subtle">
+                        <div class="text-center">
+                            <p class="mb-0 fw-bold h5">4.8 <i class="fa-solid fa-star text-warning small"></i></p>
+                            <small class="text-body-secondary" style="font-size: 0.75rem;">124 Ratings</small>
+                        </div>
+                        <div class="border-end h-100"></div>
+                        <div class="text-center">
+                            <p class="mb-0 fw-bold h5">1.2k</p>
+                            <small class="text-body-secondary d-flex align-items-center justify-content-center gap-1" style="font-size: 0.75rem;"><i class="fa-solid fa-download"></i> Downloads</small>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4 class="h6 fw-bold mb-2">Description</h4>
+                        <p class="small text-body-secondary mb-0">
+                            A comprehensive review of the entire syllabus for the CS201 Final Exam. Covers arrays, linked lists, trees, graphs, sorting algorithms, and Big-O notation with practical examples.
+                        </p>
+                    </div>
+
+                    <button class="btn btn-primary-gradient w-100 py-3 rounded-pill mt-4 fw-bold fs-6 shadow-sm d-flex align-items-center justify-content-center gap-2" onclick="showToast('Downloading note...')">
+                        Download Now <i class="fa-solid fa-download"></i>
+                    </button>
+                </div>
+
+                <!-- Comments Card -->
+                <div class="custom-card border-0 p-4 bg-body shadow-sm flex-grow-1">
+                    <h3 class="h5 fw-bold mb-4">Comments (3)</h3>
+
+                    <!-- Comments List -->
+                    <div class="d-flex flex-column gap-4 mb-4">
+                        <div class="d-flex gap-3">
+                            <img src="https://i.pravatar.cc/150?u=5" alt="User" class="rounded-circle border flex-shrink-0" style="width: 32px; height: 32px;">
+                            <div>
+                                <div class="bg-body-tertiary p-3 rounded-3">
+                                    <p class="fw-semibold small mb-1">Ananya Singh</p>
+                                    <p class="small text-body mb-0">This saved my life for the midterm! The tree traversal section is so clear.</p>
+                                </div>
+                                <small class="text-body-secondary ms-2" style="font-size: 0.75rem;">2 days ago</small>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex gap-3">
+                            <img src="https://i.pravatar.cc/150?u=6" alt="User" class="rounded-circle border flex-shrink-0" style="width: 32px; height: 32px;">
+                            <div>
+                                <div class="bg-body-tertiary p-3 rounded-3">
+                                    <p class="fw-semibold small mb-1">Rohan Kumar</p>
+                                    <p class="small text-body mb-0">Are there any practice problems for Dijkstra's algorithm in this?</p>
+                                </div>
+                                <small class="text-body-secondary ms-2" style="font-size: 0.75rem;">1 week ago</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Comment -->
+                    <div class="mt-auto pt-3 border-top">
+                        <form onsubmit="if(!isLoggedIn()){ event.preventDefault(); window.location.href='login.html'; return; } event.preventDefault(); showToast('Comment posted!'); document.getElementById('comment-input').value = '';">
+                            <div class="input-group">
+                                <input type="text" id="comment-input" class="form-control form-control-sm bg-body-tertiary border-0 rounded-start-pill ps-3" placeholder="Write a comment..." required>
+                                <button class="btn btn-primary text-white rounded-end-pill px-3" type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
