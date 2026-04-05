@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - StudyShare</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Security Check -->
+    <script src="js/main.js"></script>
+    <script>requireAuth();</script>
+</head>
+<body class="antialiased bg-body-tertiary d-flex vh-100 overflow-hidden">
+
+    <!-- Sidebar Navigation (Desktop) -->
+    <aside class="d-none d-md-flex flex-column bg-body border-end" style="width: 256px;">
+        <div class="p-4 d-flex align-items-center gap-3 cursor-pointer border-bottom" onclick="window.location.href='index.html'">
+            <img src="images/logo.png" alt="StudyShare" style="width: 32px; height: 32px;" class="rounded shadow-sm object-fit-cover">
+            <span class="h5 mb-0 fw-bold tracking-tight">StudyShare</span>
+        </div>
+
+        <div class="flex-grow-1 overflow-auto py-3 px-3 d-flex flex-column gap-1">
+            <a href="dashboard.html" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 bg-primary bg-opacity-10 text-primary fw-medium small">
+                <i class="fa-solid fa-chart-pie me-3" style="width: 20px;"></i> Dashboard
+            </a>
+            <a href="upload.html" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 text-body hover-bg-light transition fw-medium small">
+                <i class="fa-solid fa-cloud-arrow-up me-3" style="width: 20px;"></i> Upload Notes
+            </a>
+            <a href="profile.html#my-notes" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 text-body hover-bg-light transition fw-medium small">
+                <i class="fa-regular fa-file-lines me-3" style="width: 20px;"></i> My Notes
+            </a>
+            <a href="#" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 text-body hover-bg-light transition fw-medium small">
+                <i class="fa-regular fa-bookmark me-3" style="width: 20px;"></i> Bookmarks
+            </a>
+            <a href="profile.html" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 text-body hover-bg-light transition fw-medium small">
+                <i class="fa-regular fa-user me-3" style="width: 20px;"></i> Profile
+            </a>
+        </div>
+
+        <div class="p-3 border-top">
+            <a href="#" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 text-danger hover-bg-danger-subtle transition fw-medium small" onclick="handleLogout(event)">
+                <i class="fa-solid fa-arrow-right-from-bracket me-3" style="width: 20px;"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content wrapper -->
+    <div class="flex-grow-1 d-flex flex-column overflow-hidden">
+        
+        <!-- Mobile Header -->
+        <div class="d-md-none bg-body border-bottom px-3 py-2 d-flex justify-content-between align-items-center sticky-top z-1">
+            <div class="d-flex align-items-center gap-2" onclick="window.location.href='index.html'">
+                <div class="d-flex align-items-center justify-content-center bg-gradient-primary text-white rounded shadow-sm" style="width: 32px; height: 32px; font-weight: bold;">S</div>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-link text-decoration-none text-body p-1 theme-toggle">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button class="btn btn-link text-body p-1" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+                    <i class="fa-solid fa-bars fs-4"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Offcanvas Sidebar -->
+        <div class="offcanvas offcanvas-start bg-body" tabindex="-1" id="mobileSidebar">
+            <div class="offcanvas-header border-bottom">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="d-flex align-items-center justify-content-center bg-gradient-primary text-white rounded" style="width: 32px; height: 32px; font-weight: bold;">S</div>
+                    <span class="h5 mb-0 fw-bold">StudyShare</span>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body d-flex flex-column p-0">
+                <div class="flex-grow-1 py-3 px-3 d-flex flex-column gap-2">
+                    <a href="dashboard.html" class="d-flex align-items-center px-3 py-3 text-decoration-none rounded bg-primary bg-opacity-10 text-primary fw-medium">
+                        <i class="fa-solid fa-chart-pie me-3"></i> Dashboard
+                    </a>
+                    <a href="upload.html" class="d-flex align-items-center px-3 py-3 text-decoration-none rounded text-body fw-medium">
+                        <i class="fa-solid fa-cloud-arrow-up me-3"></i> Upload Notes
+                    </a>
+                    <a href="profile.html#my-notes" class="d-flex align-items-center px-3 py-3 text-decoration-none rounded text-body fw-medium">
+                        <i class="fa-regular fa-file-lines me-3"></i> My Notes
+                    </a>
+                    <a href="#" class="d-flex align-items-center px-3 py-3 text-decoration-none rounded text-body fw-medium">
+                        <i class="fa-regular fa-bookmark me-3"></i> Bookmarks
+                    </a>
+                    <a href="profile.html" class="d-flex align-items-center px-3 py-3 text-decoration-none rounded text-body fw-medium">
+                        <i class="fa-regular fa-user me-3"></i> Profile
+                    </a>
+                </div>
+                <div class="p-3 border-top mt-auto">
+                    <a href="#" class="d-flex align-items-center px-3 py-3 text-decoration-none rounded text-danger fw-medium" onclick="handleLogout(event)">
+                        <i class="fa-solid fa-arrow-right-from-bracket me-3"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow-1 overflow-auto bg-body-tertiary">
+            <div class="container-fluid px-3 px-md-4 py-4 max-w-7xl mx-auto" style="max-width: 1200px;">
+                
+                <!-- Desktop Top Bar -->
+                <div class="d-none d-md-flex justify-content-between align-items-center mb-4 pb-2">
+                    <h1 class="h3 fw-bold mb-0">Welcome back, <span id="dash-name-desktop">Aryan</span>! 👋</h1>
+                    <div class="d-flex align-items-center gap-3">
+                        <button class="btn btn-light rounded-circle shadow-sm theme-toggle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                            <i class="fa-solid fa-moon"></i>
+                        </button>
+                        <div class="d-flex align-items-center gap-2 ps-3 border-start border-secondary-subtle">
+                            <span class="small fw-medium" id="dash-fullname">Aryan Sharma</span>
+                            <img class="current-user-pfp rounded-circle border border-2 shadow-sm" src="" alt="Profile" style="width: 40px; height: 40px;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-md-none mb-4 mt-2">
+                    <h1 class="h4 fw-bold mb-0">Welcome back, <span id="dash-name-mobile">Aryan</span>! 👋</h1>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="row g-4 mb-5">
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="custom-card p-4 d-flex align-items-center border-0 h-100">
+                            <div class="rounded-3 bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 56px; height: 56px; font-size: 1.5rem;">
+                                <i class="fa-solid fa-file-arrow-up"></i>
+                            </div>
+                            <div>
+                                <p class="small fw-medium text-body-secondary mb-1">Uploaded</p>
+                                <h3 class="h4 fw-bold mb-0">12</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="custom-card p-4 d-flex align-items-center border-0 h-100">
+                            <div class="rounded-3 bg-success bg-opacity-10 text-success d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 56px; height: 56px; font-size: 1.5rem;">
+                                <i class="fa-solid fa-download"></i>
+                            </div>
+                            <div>
+                                <p class="small fw-medium text-body-secondary mb-1">Downloads</p>
+                                <h3 class="h4 fw-bold mb-0">1,245</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="custom-card p-4 d-flex align-items-center border-0 h-100">
+                            <div class="rounded-3 bg-info bg-opacity-10 text-info d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 56px; height: 56px; font-size: 1.5rem;">
+                                <i class="fa-regular fa-eye"></i>
+                            </div>
+                            <div>
+                                <p class="small fw-medium text-body-secondary mb-1">Total Views</p>
+                                <h3 class="h4 fw-bold mb-0">8,902</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 col-xl-3">
+                        <div class="custom-card p-4 d-flex align-items-center border-0 h-100">
+                            <div class="rounded-3 bg-warning bg-opacity-10 text-warning d-flex align-items-center justify-content-center me-3 flex-shrink-0" style="width: 56px; height: 56px; font-size: 1.5rem;">
+                                <i class="fa-regular fa-bookmark"></i>
+                            </div>
+                            <div>
+                                <p class="small fw-medium text-body-secondary mb-1">Bookmarks</p>
+                                <h3 class="h4 fw-bold mb-0">45</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Uploads Table -->
+                <div class="custom-card overflow-hidden border-0">
+                    <div class="px-4 py-3 border-bottom d-flex justify-content-between align-items-center bg-body-tertiary">
+                        <h3 class="h6 fw-bold mb-0">Recent Uploads</h3>
+                        <a href="upload.html" class="btn btn-sm btn-primary-gradient px-3 rounded-2">Upload New</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-borderless align-middle mb-0 bg-body">
+                            <thead class="bg-body-tertiary text-body-secondary small text-uppercase">
+                                <tr>
+                                    <th scope="col" class="px-4 py-3 fw-medium" style="border-bottom: 1px solid var(--bs-border-color);">Note Title</th>
+                                    <th scope="col" class="px-4 py-3 fw-medium" style="border-bottom: 1px solid var(--bs-border-color);">Subject</th>
+                                    <th scope="col" class="px-4 py-3 fw-medium" style="border-bottom: 1px solid var(--bs-border-color);">Date</th>
+                                    <th scope="col" class="px-4 py-3 fw-medium text-end" style="border-bottom: 1px solid var(--bs-border-color);">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid var(--bs-border-color);">
+                                    <td class="px-4 py-3 text-nowrap">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fa-solid fa-file-pdf text-danger fs-5 me-3 w-4"></i>
+                                            <span class="small fw-medium">Data Structures Final</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-nowrap">
+                                        <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-2 py-1">Computer Science</span>
+                                    </td>
+                                    <td class="px-4 py-3 text-nowrap small text-body-secondary">Oct 24, 2026</td>
+                                    <td class="px-4 py-3 text-nowrap text-end">
+                                        <button class="btn btn-sm btn-link text-primary text-decoration-none p-0 me-3"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                                        <button class="btn btn-sm btn-link text-danger text-decoration-none p-0"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 text-nowrap">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fa-solid fa-file-powerpoint text-warning fs-5 me-3 w-4"></i>
+                                            <span class="small fw-medium">Linear Algebra Ch 1-4</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-nowrap">
+                                        <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-2 py-1">Mathematics</span>
+                                    </td>
+                                    <td class="px-4 py-3 text-nowrap small text-body-secondary">Oct 18, 2026</td>
+                                    <td class="px-4 py-3 text-nowrap text-end">
+                                        <button class="btn btn-sm btn-link text-primary text-decoration-none p-0 me-3"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                                        <button class="btn btn-sm btn-link text-danger text-decoration-none p-0"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- main.js loaded in head for security -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = getCurrentUser();
+            if(user) {
+                const firstName = user.name.split(' ')[0];
+                document.getElementById('dash-name-desktop').textContent = firstName;
+                document.getElementById('dash-name-mobile').textContent = firstName;
+                document.getElementById('dash-fullname').textContent = user.name;
+            }
+        });
+    </script>
+</body>
+</html>

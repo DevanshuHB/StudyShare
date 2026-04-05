@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyShare - Share Knowledge, Learn Faster</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="antialiased">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top py-3">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="images/logo.png" alt="StudyShare Logo" style="width: 40px; height: 40px;" class="rounded-3 shadow-sm object-fit-cover">
+                <span class="h4 mb-0 fw-bold tracking-tight">StudyShare</span>
+            </a>
+
+            <!-- Mobile Toggle -->
+            <div class="d-flex align-items-center d-lg-none gap-2">
+                <button class="btn btn-link text-secondary text-decoration-none theme-toggle p-2">
+                    <i class="fa-solid fa-moon fs-5"></i>
+                </button>
+                <button class="navbar-toggler border-0 shadow-none px-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <i class="fa-solid fa-bars fs-3 text-body"></i>
+                </button>
+            </div>
+
+            <!-- Desktop / Collapsible Menu -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-4">
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold text-primary" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="explore.html">Explore Notes</a>
+                    </li>
+                    <li class="nav-item auth-only d-none">
+                        <a class="nav-link" href="upload.html">Upload Notes</a>
+                    </li>
+                    <li class="nav-item auth-only d-none">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item auth-only d-none">
+                        <a class="nav-link" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+
+                <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-3 mt-3 mt-lg-0">
+                    <button class="btn btn-link text-decoration-none text-body p-2 theme-toggle d-none d-lg-block rounded-circle hover-bg-light transition">
+                        <i class="fa-solid fa-moon fs-5"></i>
+                    </button>
+                    <!-- Logged Out State -->
+                    <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-3 guest-only">
+                        <a href="login.html" class="nav-link fw-medium d-inline-block text-center mb-2 mb-lg-0">Login</a>
+                        <a href="signup.html" class="btn btn-primary-gradient px-4 py-2 rounded-3 fw-medium">Sign Up</a>
+                    </div>
+                    <!-- Logged In State -->
+                    <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-3 auth-only d-none">
+                        <a href="#" class="nav-link fw-medium text-danger d-inline-block text-center mb-2 mb-lg-0" onclick="handleLogout(event)">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="padding-top: 80px;">
+        
+        <!-- Hero Section -->
+        <section class="position-relative overflow-hidden pt-5 pb-5 pt-lg-5 pb-lg-5 mb-5">
+            <!-- Background Gradients (Abstract CSS Blobs) -->
+            <div class="blob bg-primary" style="top: -50px; left: -50px; width: 300px; height: 300px;"></div>
+            <div class="blob bg-info" style="top: -50px; right: -50px; width: 300px; height: 300px;"></div>
+            <div class="blob bg-secondary" style="bottom: -100px; left: 100px; width: 300px; height: 300px;"></div>
+
+            <div class="container position-relative z-1 text-center py-5">
+                <h1 class="display-3 fw-bolder mb-4">
+                    <span class="d-block text-body mb-2">Share Knowledge.</span>
+                    <span class="text-gradient-primary">Learn Faster.</span>
+                </h1>
+                <p class="lead text-body-secondary mx-auto mb-5" style="max-width: 700px;">
+                    A collaborative platform where students upload, share, and access high-quality study notes across multiple subjects. Elevate your grades together.
+                </p>
+                <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                    <a href="explore.html" class="btn btn-primary-gradient px-4 py-3 rounded-3 fs-5 d-inline-flex align-items-center justify-content-center gap-2">
+                        Browse Notes <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="upload.html" class="btn btn-outline-custom px-4 py-3 rounded-3 fs-5 d-inline-flex align-items-center justify-content-center gap-2" onclick="if(!isLoggedIn()) { event.preventDefault(); window.location.href='login.html'; }">
+                        Upload Notes <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Notes Section -->
+        <section class="py-5 bg-body">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-end mb-5">
+                    <div>
+                        <h2 class="h1 fw-bold mb-3">Recently Uploaded</h2>
+                        <p class="text-body-secondary mb-0">Discover the latest study materials from your peers.</p>
+                    </div>
+                    <a href="explore.html" class="d-none d-sm-flex align-items-center gap-2 text-primary fw-medium text-decoration-none">
+                        View All <i class="fa-solid fa-chevron-right small"></i>
+                    </a>
+                </div>
+
+                <!-- Notes Grid (6 cards) -->
+                <div class="row g-4">
+                    
+                    <!-- Card 1 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="custom-card p-4 h-100 d-flex flex-column" style="cursor: pointer;" onclick="window.location.href='note-view.html'">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="bg-danger bg-opacity-10 text-danger rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 1.5rem;">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                </div>
+                                <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2">Computer Science</span>
+                            </div>
+                            <h3 class="h5 fw-bold mb-2">Data Structures & Algorithms</h3>
+                            <p class="small text-body-secondary mb-4 d-flex align-items-center gap-2">
+                                <img src="https://i.pravatar.cc/150?u=1" alt="Author" class="rounded-circle border" style="width: 24px; height: 24px;">
+                                By Aryan Sharma
+                            </p>
+                            <div class="d-flex align-items-center justify-content-between mt-auto pt-3 border-top">
+                                <div class="d-flex align-items-center gap-3 small text-body-secondary">
+                                    <span class="d-flex align-items-center gap-1"><i class="fa-solid fa-star text-warning"></i> 4.8</span>
+                                    <span class="d-flex align-items-center gap-1"><i class="fa-solid fa-download"></i> 1.2k</span>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-light rounded-circle shadow-sm" style="width: 36px; height: 36px; padding: 0;">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-light rounded-circle shadow-sm" style="width: 36px; height: 36px; padding: 0;" onclick="event.stopPropagation(); showToast('Downloading...');">
+                                        <i class="fa-solid fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="custom-card p-4 h-100 d-flex flex-column" style="cursor: pointer;" onclick="window.location.href='note-view.html'">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="bg-info bg-opacity-10 text-info rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 1.5rem;">
+                                    <i class="fa-solid fa-file-word"></i>
+                                </div>
+                                <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2">Mathematics</span>
+                            </div>
+                            <h3 class="h5 fw-bold mb-2">Calculus II Full Notes</h3>
+                            <p class="small text-body-secondary mb-4 d-flex align-items-center gap-2">
+                                <img src="https://i.pravatar.cc/150?u=2" alt="Author" class="rounded-circle border" style="width: 24px; height: 24px;">
+                                By Priya Patel
+                            </p>
+                            <div class="d-flex align-items-center justify-content-between mt-auto pt-3 border-top">
+                                <div class="d-flex align-items-center gap-3 small text-body-secondary">
+                                    <span class="d-flex align-items-center gap-1"><i class="fa-solid fa-star text-warning"></i> 4.9</span>
+                                    <span class="d-flex align-items-center gap-1"><i class="fa-solid fa-download"></i> 890</span>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-light rounded-circle shadow-sm" style="width: 36px; height: 36px; padding: 0;">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-light rounded-circle shadow-sm" style="width: 36px; height: 36px; padding: 0;" onclick="event.stopPropagation(); showToast('Downloading...');">
+                                        <i class="fa-solid fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="custom-card p-4 h-100 d-flex flex-column" style="cursor: pointer;" onclick="window.location.href='note-view.html'">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div class="bg-warning bg-opacity-10 text-warning rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; font-size: 1.5rem;">
+                                    <i class="fa-solid fa-file-powerpoint"></i>
+                                </div>
+                                <span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-3 py-2">Physics</span>
+                            </div>
+                            <h3 class="h5 fw-bold mb-2">Quantum Mechanics Slides</h3>
+                            <p class="small text-body-secondary mb-4 d-flex align-items-center gap-2">
+                                <img src="https://i.pravatar.cc/150?u=3" alt="Author" class="rounded-circle border" style="width: 24px; height: 24px;">
+                                By Prof. Gupta
+                            </p>
+                            <div class="d-flex align-items-center justify-content-between mt-auto pt-3 border-top">
+                                <div class="d-flex align-items-center gap-3 small text-body-secondary">
+                                    <span class="d-flex align-items-center gap-1"><i class="fa-solid fa-star text-warning"></i> 4.5</span>
+                                    <span class="d-flex align-items-center gap-1"><i class="fa-solid fa-download"></i> 645</span>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-light rounded-circle shadow-sm" style="width: 36px; height: 36px; padding: 0;">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-light rounded-circle shadow-sm" style="width: 36px; height: 36px; padding: 0;" onclick="event.stopPropagation(); showToast('Downloading...');">
+                                        <i class="fa-solid fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="py-5 bg-body-tertiary">
+            <div class="container py-4">
+                <div class="text-center mb-5">
+                    <h2 class="h1 fw-bold mb-3">Explore by Category</h2>
+                    <p class="lead text-body-secondary mx-auto" style="max-width: 600px;">Find exactly what you need from our comprehensive categorization system.</p>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <a href="explore.html?category=cs" class="text-decoration-none text-body hover-scale d-block">
+                            <div class="custom-card p-4 text-center h-100">
+                                <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-primary bg-opacity-10 text-primary mb-3" style="width: 64px; height: 64px; font-size: 1.75rem;">
+                                    <i class="fa-solid fa-laptop-code"></i>
+                                </div>
+                                <h3 class="h6 fw-semibold mb-1">Computer Science</h3>
+                                <p class="small text-body-secondary mb-0">1.2k Notes</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <a href="explore.html?category=eng" class="text-decoration-none text-body hover-scale d-block">
+                            <div class="custom-card p-4 text-center h-100">
+                                <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-secondary bg-opacity-10 text-secondary mb-3" style="width: 64px; height: 64px; font-size: 1.75rem;">
+                                    <i class="fa-solid fa-gears"></i>
+                                </div>
+                                <h3 class="h6 fw-semibold mb-1">Engineering</h3>
+                                <p class="small text-body-secondary mb-0">850 Notes</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <a href="explore.html?category=math" class="text-decoration-none text-body hover-scale d-block">
+                            <div class="custom-card p-4 text-center h-100">
+                                <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-success bg-opacity-10 text-success mb-3" style="width: 64px; height: 64px; font-size: 1.75rem;">
+                                    <i class="fa-solid fa-calculator"></i>
+                                </div>
+                                <h3 class="h6 fw-semibold mb-1">Mathematics</h3>
+                                <p class="small text-body-secondary mb-0">940 Notes</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <a href="explore.html?category=physics" class="text-decoration-none text-body hover-scale d-block">
+                            <div class="custom-card p-4 text-center h-100">
+                                <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-danger bg-opacity-10 text-danger mb-3" style="width: 64px; height: 64px; font-size: 1.75rem;">
+                                    <i class="fa-solid fa-atom"></i>
+                                </div>
+                                <h3 class="h6 fw-semibold mb-1">Physics</h3>
+                                <p class="small text-body-secondary mb-0">620 Notes</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <a href="explore.html?category=prog" class="text-decoration-none text-body hover-scale d-block">
+                            <div class="custom-card p-4 text-center h-100">
+                                <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-info bg-opacity-10 text-info mb-3" style="width: 64px; height: 64px; font-size: 1.75rem;">
+                                    <i class="fa-solid fa-code"></i>
+                                </div>
+                                <h3 class="h6 fw-semibold mb-1">Programming</h3>
+                                <p class="small text-body-secondary mb-0">2.1k Notes</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-6 col-md-4 col-lg-2">
+                        <a href="explore.html?category=exams" class="text-decoration-none text-body hover-scale d-block">
+                            <div class="custom-card p-4 text-center h-100">
+                                <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-warning bg-opacity-10 text-warning mb-3" style="width: 64px; height: 64px; font-size: 1.75rem;">
+                                    <i class="fa-solid fa-file-pen"></i>
+                                </div>
+                                <h3 class="h6 fw-semibold mb-1">Exams & Prep</h3>
+                                <p class="small text-body-secondary mb-0">3.4k Notes</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="py-5 position-relative overflow-hidden bg-dark text-white">
+            <div class="position-absolute top-0 start-0 w-100 h-100 opacity-75" style="background: linear-gradient(135deg, #6C63FF, #00BFA6);"></div>
+            <div class="container position-relative z-1 text-center py-5">
+                <h2 class="display-5 fw-bold mb-4">Start sharing your study resources today.</h2>
+                <p class="lead mb-5 text-white-50">Join thousands of students who are learning better, together.</p>
+                <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                    <a href="signup.html" class="btn btn-light px-5 py-3 rounded-3 fs-5 fw-semibold shadow-sm text-primary">
+                        Sign Up Now
+                    </a>
+                    <a href="explore.html" class="btn btn-outline-light px-5 py-3 rounded-3 fs-5 fw-semibold">
+                        Explore Notes
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-body border-top py-5">
+        <div class="container py-4">
+            <div class="row g-5">
+                <!-- Branding -->
+                <div class="col-12 col-md-4">
+                    <div class="d-flex align-items-center gap-2 mb-4">
+                        <img src="images/logo.png" alt="StudyShare Logo" style="width: 32px; height: 32px;" class="rounded shadow-sm object-fit-cover">
+                        <span class="h5 mb-0 fw-bold">StudyShare</span>
+                    </div>
+                    <p class="text-body-secondary small mb-4">
+                        A collaborative platform where students upload and access study notes from multiple subjects.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="btn social-btn twitter rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;"><i class="fa-brands fa-x-twitter text-body"></i></a>
+                        <a href="#" class="btn social-btn github rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" class="btn social-btn discord rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="col-6 col-md-2 offset-md-1">
+                    <h5 class="fw-bold mb-4">Quick Links</h5>
+                    <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                        <li><a href="index.html" class="text-body-secondary text-decoration-none hover-primary">Home</a></li>
+                        <li><a href="explore.html" class="text-body-secondary text-decoration-none hover-primary">Explore Notes</a></li>
+                        <li><a href="about.html" class="text-body-secondary text-decoration-none hover-primary">About Us</a></li>
+                        <li><a href="contact.html" class="text-body-secondary text-decoration-none hover-primary">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Categories -->
+                <div class="col-6 col-md-2">
+                    <h5 class="fw-bold mb-4">Categories</h5>
+                    <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                        <li><a href="#" class="text-body-secondary text-decoration-none hover-primary">Computer Science</a></li>
+                        <li><a href="#" class="text-body-secondary text-decoration-none hover-primary">Engineering</a></li>
+                        <li><a href="#" class="text-body-secondary text-decoration-none hover-primary">Mathematics</a></li>
+                        <li><a href="#" class="text-body-secondary text-decoration-none hover-primary">Programming</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-12 col-md-3">
+                    <h5 class="fw-bold mb-4">Contact Info</h5>
+                    <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                        <li class="text-body-secondary small d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-envelope"></i> support@studyshare.com
+                        </li>
+                        <li class="text-body-secondary small d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-location-dot"></i> Global Remote Startups
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr class="my-5">
+            
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                <p class="text-body-secondary small mb-0">
+                    © 2026 StudyShare — Built for students.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-body-secondary small text-decoration-none">Privacy Policy</a>
+                    <a href="#" class="text-body-secondary small text-decoration-none">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
