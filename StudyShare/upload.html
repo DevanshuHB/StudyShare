@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Notes - StudyShare</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Security Check -->
+    <script src="js/main.js"></script>
+    <script>requireAuth();</script>
+</head>
+<body class="antialiased bg-body-tertiary d-flex vh-100 overflow-hidden">
+
+    <!-- Sidebar Navigation (Desktop) -->
+    <aside class="d-none d-md-flex flex-column bg-body border-end" style="width: 256px;">
+        <div class="p-4 d-flex align-items-center gap-3 cursor-pointer border-bottom" onclick="window.location.href='index.html'">
+            <img src="images/logo.png" alt="StudyShare Logo" style="width: 32px; height: 32px;" class="rounded shadow-sm object-fit-cover">
+            <span class="h5 mb-0 fw-bold tracking-tight">StudyShare</span>
+        </div>
+
+        <div class="flex-grow-1 overflow-auto py-3 px-3 d-flex flex-column gap-1">
+            <a href="dashboard.html" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 text-body hover-bg-light transition fw-medium small">
+                <i class="fa-solid fa-chart-pie me-3" style="width: 20px;"></i> Dashboard
+            </a>
+            <a href="upload.html" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 bg-primary bg-opacity-10 text-primary fw-medium small">
+                <i class="fa-solid fa-cloud-arrow-up me-3" style="width: 20px;"></i> Upload Notes
+            </a>
+            <a href="profile.html#my-notes" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 text-body hover-bg-light transition fw-medium small">
+                <i class="fa-regular fa-file-lines me-3" style="width: 20px;"></i> My Notes
+            </a>
+            <a href="#" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 text-body hover-bg-light transition fw-medium small">
+                <i class="fa-regular fa-bookmark me-3" style="width: 20px;"></i> Bookmarks
+            </a>
+            <a href="profile.html" class="d-flex align-items-center px-3 py-2 text-decoration-none rounded-3 text-body hover-bg-light transition fw-medium small">
+                <i class="fa-regular fa-user me-3" style="width: 20px;"></i> Profile
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content wrapper -->
+    <div class="flex-grow-1 d-flex flex-column overflow-hidden">
+        
+        <!-- Mobile Header (Simplified) -->
+        <div class="d-md-none bg-body border-bottom px-3 py-2 d-flex justify-content-between align-items-center sticky-top z-1">
+            <div class="d-flex align-items-center gap-2" onclick="window.location.href='index.html'">
+                <div class="d-flex align-items-center justify-content-center bg-gradient-primary text-white rounded shadow-sm" style="width: 32px; height: 32px; font-weight: bold;">S</div>
+            </div>
+            <div class="d-flex gap-3">
+                <button class="btn btn-link text-body p-1" onclick="window.location.href='dashboard.html'"><i class="fa-solid fa-times fs-4"></i></button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow-1 overflow-auto bg-body-tertiary">
+            <div class="container-fluid px-3 px-md-4 py-4 max-w-7xl mx-auto" style="max-width: 800px;">
+                
+                <div class="mb-4">
+                    <h1 class="h3 fw-bold mb-1">Upload Material</h1>
+                    <p class="text-body-secondary small">Share your study resources with the community.</p>
+                </div>
+
+                <div class="custom-card border-0 p-4 p-sm-5">
+                    <form action="#" method="POST" onsubmit="event.preventDefault(); showToast('Note uploaded successfully!');" class="d-flex flex-column gap-4">
+                        
+                        <!-- File Upload Area -->
+                        <div class="border border-2 border-dashed rounded-4 p-5 text-center bg-body hover-bg-light transition" style="cursor: pointer; border-color: var(--bs-border-color) !important;">
+                            <i class="fa-solid fa-cloud-arrow-up text-primary mb-3" style="font-size: 3rem;"></i>
+                            <h3 class="h6 fw-semibold mb-1">Drag and drop your files here</h3>
+                            <p class="small text-body-secondary mb-4">Support for PDF, DOCX, PPTX or Images (max 50MB)</p>
+                            <input type="file" id="file-upload" class="d-none">
+                            <button type="button" class="btn btn-outline-custom px-4 py-2 rounded-3 fw-medium" onclick="document.getElementById('file-upload').click()">
+                                Browse Files
+                            </button>
+                        </div>
+
+                        <!-- Form Fields -->
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label for="title" class="form-label small fw-medium text-body-secondary">Note Title</label>
+                                <input type="text" id="title" required class="form-control form-control-custom bg-body" placeholder="e.g. Intro to Data Structures">
+                            </div>
+
+                            <div class="col-12">
+                                <label for="subject" class="form-label small fw-medium text-body-secondary">Subject / Category</label>
+                                <select id="subject" class="form-select form-control-custom bg-body text-body">
+                                    <option>Computer Science</option>
+                                    <option>Engineering</option>
+                                    <option>Mathematics</option>
+                                    <option>Physics</option>
+                                    <option>Programming</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="description" class="form-label small fw-medium text-body-secondary">Description</label>
+                                <textarea id="description" rows="4" class="form-control form-control-custom bg-body resize-none" style="resize: none;" placeholder="Briefly describe what this note covers..."></textarea>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="tags" class="form-label small fw-medium text-body-secondary">Tags</label>
+                                <input type="text" id="tags" class="form-control form-control-custom bg-body" placeholder="e.g. exams, cheat sheet, algorithms">
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-3 pt-4 mt-2 border-top">
+                            <button type="button" class="btn btn-light border px-4 py-2 rounded-3 fw-medium" onclick="window.history.back()">
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary-gradient px-4 py-2 rounded-3 fw-medium">
+                                Upload Notes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- main.js already loaded -->
+</body>
+</html>
